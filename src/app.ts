@@ -8,7 +8,7 @@ import * as Utils from './utils/utils';
 import * as Assets from './assets';
 import BootState from './states/boot-state';
 import PreloaderState from './states/preloader-state';
-import GameState from './states/title-state';
+import GameState from './states/game-state';
 
 class App extends Phaser.Game {
     constructor(config: Phaser.IGameConfig) {

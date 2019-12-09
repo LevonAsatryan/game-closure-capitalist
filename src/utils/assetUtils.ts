@@ -5,6 +5,40 @@ export class Loader {
     private static soundKeys: string[] = [];
     private static soundExtensionsPreference: string[] = SOUND_EXTENSIONS_PREFERENCE;
 
+    public static loadAllAssets(game: Phaser.Game, onComplete?: Function, onCompleteContext?: any) {
+        this.game = game;
+
+        if (onComplete) {
+            this.game.load.onLoadComplete.addOnce(onComplete, onCompleteContext);
+        }
+
+        this.loadImages();
+        this.loadSpritesheets();
+        this.loadAtlases();
+        this.loadAudio();
+        this.loadAudiosprites();
+        this.loadBitmapFonts();
+        this.loadJSON();
+        this.loadTilemapJSON();
+        this.loadXML();
+        this.loadText();
+        this.loadScripts();
+        this.loadShaders();
+        this.loadMisc();
+
+        if ((this.game.load as any)._fileList.length === 0) {
+            this.game.load.onLoadComplete.dispatch();
+        }
+    }
+
+    public static waitForSoundDecoding(onComplete: Function, onCompleteContext?: any) {
+        if (this.soundKeys.length > 0) {
+            this.game.sound.setDecodedCallback(this.soundKeys, onComplete, onCompleteContext);
+        } else {
+            onComplete.call(onCompleteContext);
+        }
+    }
+
     private static loadImages() {
         let allImages = (Assets.Images as any);
 
@@ -79,7 +113,7 @@ export class Loader {
     }
 
     private static loadAudio() {
-        let allAudio = (Assets.Audio as  any);
+        let allAudio = (Assets.Audio as any);
 
         for (let audio in allAudio) {
             let soundName = allAudio[audio].getName();
@@ -210,40 +244,6 @@ export class Loader {
             if (!this.game.cache.checkBinaryKey(allMisc[misc].getName())) {
                 this.game.load.binary(allMisc[misc].getName(), allMisc[misc].getFile());
             }
-        }
-    }
-
-    public static loadAllAssets(game: Phaser.Game, onComplete?: Function, onCompleteContext?: any) {
-        this.game = game;
-
-        if (onComplete) {
-            this.game.load.onLoadComplete.addOnce(onComplete, onCompleteContext);
-        }
-
-        this.loadImages();
-        this.loadSpritesheets();
-        this.loadAtlases();
-        this.loadAudio();
-        this.loadAudiosprites();
-        this.loadBitmapFonts();
-        this.loadJSON();
-        this.loadTilemapJSON();
-        this.loadXML();
-        this.loadText();
-        this.loadScripts();
-        this.loadShaders();
-        this.loadMisc();
-
-        if ((this.game.load as any)._fileList.length === 0) {
-            this.game.load.onLoadComplete.dispatch();
-        }
-    }
-
-    public static waitForSoundDecoding(onComplete: Function, onCompleteContext?: any) {
-        if (this.soundKeys.length > 0) {
-            this.game.sound.setDecodedCallback(this.soundKeys, onComplete, onCompleteContext);
-        } else {
-            onComplete.call(onCompleteContext);
         }
     }
 }

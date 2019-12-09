@@ -16,6 +16,11 @@ export namespace Images {
 
         static getJPG(): string { return require('assets/images/background.jpg'); }
     }
+    export class ImagesComingSoon {
+        static getName(): string { return 'coming-soon'; }
+
+        static getPNG(): string { return require('assets/images/coming-soon.png'); }
+    }
     export class ImagesFoodChainManager {
         static getName(): string { return 'food-chain-manager'; }
 
