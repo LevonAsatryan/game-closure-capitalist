@@ -28,7 +28,5 @@ When enough money is collected, the user can buy another businesses like Newspap
 The user can hire manager by clicking on Managers button, and clicking on the manager that he desires. The manager will automate the income generation process, however they're not cheap (dah).
 
 
-**Thank you Game Closure for the assignment, I really enjoyed working on this project ^-^, have a good day**
-
      
 
